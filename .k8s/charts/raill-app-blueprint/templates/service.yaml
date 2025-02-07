@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "raill-app-blueprint.fullname" . }}
+  labels:
+    {{- include "raill-app-blueprint.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "raill-app-blueprint.selectorLabels" . | nindent 4 }}

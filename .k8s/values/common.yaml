@@ -1,0 +1,40 @@
+replicaCount: 2
+
+image:
+  repository: devops_exercise
+  pullPolicy: Never
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+serviceAccount:
+  create: true
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: dev.devops-exercise.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+container:
+  envFrom:
+  - secretRef:
+      name: devops-exercise-envs
+  resources:
+    limits:
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80

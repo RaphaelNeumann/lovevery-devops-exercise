@@ -1,0 +1,21 @@
+replicaCount: 1
+environment: develop
+env: dev
+
+image:
+  tag: "develop"
+
+service:
+  type: ClusterIP
+  port: 80
+
+container:   
+  resources:
+    limits:
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+autoscaling:
+  enabled: false
