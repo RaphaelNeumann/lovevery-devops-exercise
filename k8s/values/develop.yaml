@@ -9,6 +9,15 @@ service:
   type: ClusterIP
   port: 80
 
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: dev.devops-exercise.lovevery.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
 container:   
   resources:
     limits:
