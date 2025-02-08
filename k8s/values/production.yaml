@@ -1,0 +1,30 @@
+environment: production
+env: prod
+
+image:
+  tag: "production"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: prod.devops-exercise.lovevery.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+container:
+  envFrom:
+  - secretRef: 
+      name: devops-exercise-envs
+    
+  resources:
+    limits:
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi

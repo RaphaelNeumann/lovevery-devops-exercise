@@ -1,0 +1,30 @@
+replicaCount: 1
+environment: develop
+env: dev
+
+image:
+  tag: "develop"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: dev.devops-exercise.lovevery.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+container:   
+  resources:
+    limits:
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+autoscaling:
+  enabled: false
